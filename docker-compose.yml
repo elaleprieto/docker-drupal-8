@@ -1,0 +1,29 @@
+version: '2'
+services:
+  db:
+    image: mysql:5.7
+    restart: always
+    ports:
+      - "3366:3306"
+    environment:
+      MYSQL_DATABASE: drupallibre
+      MYSQL_ROOT_PASSWORD: CoL1br3
+      MYSQL_USER: colectivolibre_w
+      MYSQL_PASSWORD: 9ymy3uteq
+    volumes:
+      - drupal-8-data:/var/lib/mysql
+  server:
+    # image: php:5.6.30-apache
+    image: drupal:8.2.8-apache
+    restart: always
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    links:
+      - db:mysql
+    volumes:
+      - ./src:/var/www/html:Z
+
+volumes:
+  drupal-8-data:
