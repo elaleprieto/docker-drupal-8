@@ -25,6 +25,7 @@ services:
       - db:mysql
     volumes:
       - ./src:/var/www/html:Z
+      - ./php.ini:/usr/local/etc/php/conf.d/custom.ini
     command: bash -c "chown -R www-data:www-data /var/www/html && service apache2 start && tail -f /dev/null"
 
 volumes:
